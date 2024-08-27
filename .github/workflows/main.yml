@@ -22,6 +22,7 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         command: code test
+        json: false
 
     - name: Snyk Report
       uses: snyk/actions/python@master
