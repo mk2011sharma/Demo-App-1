@@ -44,7 +44,6 @@ jobs:
       uses: github/codeql-action/upload-sarif@v3
       with:
         sarif_file: snyk_code_test.sarif
-        checkout_path: .
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
