@@ -26,7 +26,9 @@ jobs:
       
     - name: Snyk Security Scan
       uses: snyk/actions/python@master
-      run: snyk test --sarif-file-output=snyk_code_test.sarif
+      with:
+        command: code test --sarif
+        args: --sarif-file-output=snyk_code_test.sarif
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       continue-on-error: true
