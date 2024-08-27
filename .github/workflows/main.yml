@@ -34,21 +34,21 @@ jobs:
       continue-on-error: true
 
     - name: Run Snyk monitor
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: monitor
+      uses: snyk/actions/python@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        command: monitor
       
     - name: Create SARIF directory and move SARIF files
-        run: |
-          mkdir sarif_files &&
-          mv snyk_test.sarif snyk_code_test.sarif sarif_files/
+      run: |
+        mkdir sarif_files &&
+        mv snyk_test.sarif snyk_code_test.sarif sarif_files/
       
     - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: sarif_files
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: sarif_files
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
