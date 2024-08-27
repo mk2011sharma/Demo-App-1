@@ -47,4 +47,4 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/demo-app-1:latest
+        tags: harshitsengar/demo-app-1:latest
