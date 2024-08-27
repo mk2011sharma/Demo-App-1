@@ -23,6 +23,9 @@ jobs:
         json: false
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+    - name: snyk test
+      continue-on-error: true
 
     - name: Snyk Report
       uses: snyk/actions/python@master
