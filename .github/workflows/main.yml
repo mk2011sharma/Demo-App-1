@@ -15,15 +15,30 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+
+     - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+      
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Install Snyk CLI
+      run: pip install snyk
       
     - name: Snyk Security Scan
-      uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk auth $SNYK_TOKEN
-      with:
-        command: code test
-        command: monitor --all-projects --json | snyk-to-html -o snyk_report.html
+
+    - name: Run Snyk SAST Scan
+      run: snyk test --file=requirements.txt --dev
+    
+    - name: Snyk Report
+      run: snyk monitor --all-projects --json | snyk-to-html -o snyk_report.html
 
     - name: Upload Snyk Report
       uses: actions/upload-artifact@v2
