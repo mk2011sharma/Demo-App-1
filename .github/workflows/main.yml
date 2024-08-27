@@ -24,19 +24,6 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       continue-on-error: true
-
-    - name: Snyk Report
-      uses: snyk/actions/python@master
-      env:
-        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      with: 
-        args: monitor --all-projects --json
-    
-    - name: Upload Snyk Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: snyk-report
-        path: snyk_report.html
     
     - name: login to docker registry
       uses: docker/login-action@v3
