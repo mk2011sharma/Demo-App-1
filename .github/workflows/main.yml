@@ -16,16 +16,8 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-
     - name: Snyk Security Scan
-      uses: snyk/actions/setup@v1
+      uses: snyk/actions/python@master
       with:
         snyk_token: ${{ secrets.SNYK_TOKEN }}
     - run: snyk test
