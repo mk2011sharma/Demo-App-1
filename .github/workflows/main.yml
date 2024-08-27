@@ -21,9 +21,8 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         run: snyk auth $SNYK_TOKEN
-      
-    - name: Run Snyk SAST Scan
-      run: snyk code test
+      with:
+        command: code test
 
     - name: Display Snyk Report
       run: snyk monitor --all-projects --json | snyk-to-html -o snyk_report.html
