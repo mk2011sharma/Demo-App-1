@@ -20,7 +20,20 @@ jobs:
       uses: snyk/actions/python@master
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: snyk auth $SNYK_TOKEN
+      
+    - name: Run Snyk SAST Scan
+      run: snyk code test
 
+    - name: Display Snyk Report
+      run: snyk monitor --all-projects --json | snyk-to-html -o snyk_report.html
+
+    - name: Upload Snyk Report
+      uses: actions/upload-artifact@v2
+      with:
+        name: snyk-report
+        path: snyk_report.html
+    
     - name: login to docker registry
       uses: docker/login-action@v3
       env:
