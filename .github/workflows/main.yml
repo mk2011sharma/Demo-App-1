@@ -32,7 +32,7 @@ jobs:
     - name: Snyk Security Scan
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        run: snyk auth $SNYK_TOKEN
+      run: snyk auth $SNYK_TOKEN
 
     - name: Run Snyk SAST Scan
       run: snyk test --file=requirements.txt --dev
