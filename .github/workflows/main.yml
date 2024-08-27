@@ -40,15 +40,10 @@ jobs:
       with:
         command: monitor
       
-    - name: Create SARIF directory and move SARIF files
-      run: |
-        mkdir sarif_files &&
-        mv snyk_code_test.sarif sarif_files/
-      
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: sarif_files/
+        sarif_file: snyk_code_test.sarif
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
