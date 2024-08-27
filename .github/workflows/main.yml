@@ -1,0 +1,40 @@
+name: Assessment CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Snyk Security Scan
+      uses: snyk/actions/setup@v1
+      with:
+        snyk_token: ${{ secrets.SNYK_TOKEN }}
+    - run: snyk test
+      continue-on-error: true
+
+    - name: Run tests
+      run: pytest
+
+    - name: Build Docker Image
+      run: docker build -t myapp .
+
+    - name: Push Docker Image
+      run: docker tag myapp:latest harshitsengar/myapp:latest
+      run: docker push harshitsengar/myapp:latest
