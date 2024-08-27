@@ -48,7 +48,7 @@ jobs:
     - name: Upload result to GitHub Code Scanning
       uses: github/codeql-action/upload-sarif@v2
       with:
-        sarif_file: sarif_files/*.sarif
+        sarif_file: sarif_files/
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
