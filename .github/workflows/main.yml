@@ -30,11 +30,8 @@ jobs:
       uses: snyk/actions/python@master
       env:
         snyk_token: ${{ secrets.SNYK_TOKEN }}
-    - run: snyk test
-      continue-on-error: true
-
-    - name: Run tests
-      run: pytest
+      with:
+         args: test --file=requirements.txt
 
     - name: login to docker registry
       uses: docker/login-action@v3
